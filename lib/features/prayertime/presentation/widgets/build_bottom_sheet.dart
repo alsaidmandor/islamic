@@ -102,11 +102,13 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                                 ),
                                 if (cubit.prayerTimeList.isNotEmpty) ...{
                                   Text(cubit
-                                      .prayerTimeList[cubit.currentPrayerTimePageIndex]
+                                      .prayerTimeList[
+                                          cubit.currentPrayerTimePageIndex]
                                       .date)
                                 },
                                 const Spacer(),
-                                if (dt.day != cubit.currentPrayerTimePageIndex + 1) ...{
+                                if (dt.day !=
+                                    cubit.currentPrayerTimePageIndex + 1) ...{
                                   GestureDetector(
                                     onTap: () {
                                       pageController.animateToPage(
@@ -206,7 +208,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                                                       cubit.indexNextPray,
                                                   context: context,
                                                   icon: CupertinoIcons
-                                                      .speaker_2_fill),
+                                                      .speaker_1_fill),
                                               SpaceLine(
                                                   context: context,
                                                   height: 0.2),
@@ -228,12 +230,12 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                                           text: prayerName[index],
                                           isSelected: false,
                                           time: '--:--',
-                                          indexPage: index,
-                                          indexSelectedPage: index,
-                                          indexPrayer: index,
-                                          indexSelectedPrayer: index,
+                                          indexPage: 6,
+                                          indexSelectedPage: 6,
+                                          indexPrayer: 6,
+                                          indexSelectedPrayer: 6,
                                           context: context,
-                                          icon: CupertinoIcons.speaker_2_fill),
+                                          icon: CupertinoIcons.speaker_1_fill),
                                 ),
                               ),
                             },
@@ -358,54 +360,57 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 : Colors.transparent
             : Colors.transparent,
       ),
-      child: Row(
-        children: [
-          Image(
-            image: image,
-            color: color,
-            width: 20,
-            height: 20,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(text),
-          const SizedBox(
-            width: 10,
-          ),
-          Icon(
-            icon,
-            color: ColorsManager.onBackgroundLight,
-          ),
-          const Spacer(),
-          Text(time),
-          // Checkbox(
-          //   value: false,
-          //   onChanged: (bool? value) {
-          //
-          //   },
-          // ),
-
-          SizedBox(
-            width: 5,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: 18,
-              height: 18,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                border: Border.all(
-                  color: ColorsManager.mainColor,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: null,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Image(
+              image: image,
+              color: color,
+              width: 20,
+              height: 20,
             ),
-          ),
-        ],
+            const SizedBox(
+              width: 10,
+            ),
+            Text(text),
+            const SizedBox(
+              width: 10,
+            ),
+            Icon(
+              icon,
+              color: ColorsManager.onBackgroundLight,
+            ),
+            const Spacer(),
+            Text(time),
+            // Checkbox(
+            //   value: false,
+            //   onChanged: (bool? value) {
+            //
+            //   },
+            // ),
+
+            SizedBox(
+              width: 5,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                    color: ColorsManager.mainColor,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

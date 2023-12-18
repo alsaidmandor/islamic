@@ -7,8 +7,8 @@ import 'package:islamic/features/profile/presentation/pages/profile_screen.dart'
 
 import '../../features/azkar/presentation/pages/askzr/azkar_screen.dart';
 import '../../features/azkar/presentation/pages/askzr/reading_azkar-screen.dart';
+import '../../features/dua/presentation/pages/daus_screen.dart';
 import '../../features/mainLayer/presentation/pages/main_layout_screen.dart';
-import '../../features/prayertime/presentation/pages/daus_screen.dart';
 import '../../features/prayertime/presentation/pages/home.dart';
 import '../../features/quran/presentation/pages/quran_screen.dart';
 import '../../features/quran/presentation/pages/surah_screen.dart';
@@ -65,7 +65,7 @@ class AppRoutes {
       case Routes.qibla:
         return MaterialPageRoute(builder: (context) => const QiblaScreen());
       case Routes.daus:
-        return MaterialPageRoute(builder: (context) => const DausScreen());
+        return MaterialPageRoute(builder: (context) => DausScreen());
       case Routes.calender:
         return MaterialPageRoute(builder: (context) => const CalendarScreen());
       case Routes.readAzkar:

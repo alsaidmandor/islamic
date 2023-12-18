@@ -56,6 +56,6 @@ class ColorsManager {
   static const Color blue = Color.fromRGBO(0, 50, 255, 1.0);
 
   static const Color red = Color.fromRGBO(255, 0, 0, 1.0);
-  static const Color backgroundScreenLight = Color.fromRGBO(245, 246, 248, 1);
-  static const Color backgroundScreenDark = Color.fromRGBO(16, 19, 24, 1);
+  static const Color dua1 = Color.fromRGBO(201, 157, 112, 1.0);
+  static const Color dua = Color.fromRGBO(16, 19, 24, 1);
 }

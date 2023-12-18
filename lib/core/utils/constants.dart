@@ -11,6 +11,13 @@ Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
 }
 
+List<ImageProvider> backgroundDua = [
+  AppImages.dau1,
+  AppImages.dau2,
+  AppImages.dau3,
+  AppImages.dau4,
+];
+
 List<ImageProvider> playerTimeIcon = [
   AppImages.iconfajr,
   AppImages.iconsunrise,

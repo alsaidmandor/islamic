@@ -38,7 +38,7 @@ class _BuildListOfSurahNameState extends State<BuildListOfSurahName> {
           itemCount: cubit.listOfSurahs!.length,
           itemBuilder: (context, index) {
             var cubit = QuranCubit.get(context);
-            return InkWell(
+            return GestureDetector(
               onTap: () {
                 cubit.setSelectedItemColor(index);
                 Navigator.pushNamed(context, Routes.surah);
@@ -61,12 +61,14 @@ class _BuildListOfSurahNameState extends State<BuildListOfSurahName> {
                           width: 35,
                           child: Stack(
                             children: [
-                              const Image(
+                              Image(
                                 image: AppIslamicIcon.star,
                                 width: 35,
                                 height: 35,
                                 fit: BoxFit.cover,
-                                color: Colors.white,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onInverseSurface,
                                 // color: ColorsManager.white,
                               ),
                               Center(

@@ -63,6 +63,13 @@ dependencies:
   shared_preferences: ^2.2.2
   screen_brightness: ^0.2.2+1
   marquee_text: ^2.5.0+1
+  screenshot: ^2.1.0
+  share_plus: ^7.2.1
+  share: ^2.0.4
+  image_gallery_saver: ^2.0.3
+  permission_handler: ^11.1.0
+  flutter_qiblah: ^2.2.0
+
 
 
 

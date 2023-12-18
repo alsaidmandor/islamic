@@ -4,6 +4,7 @@ class Assets {
 
   static const String assetsAdhkar = 'assets/adhkar.json';
   static const String assetsAsmaAlHusna = 'assets/asmaAlHusna.json';
+  static const String assetsDua = 'assets/dua.json';
   static const String fontsCairoBlack = 'assets/fonts/Cairo-Black.ttf';
   static const String fontsCairoBold = 'assets/fonts/Cairo-Bold.ttf';
   static const String fontsCairoExtraBold = 'assets/fonts/Cairo-ExtraBold.ttf';
@@ -41,6 +42,8 @@ class Assets {
   static const String iconislamicStar = 'assets/images/iconislamic/star.png';
   static const String iconislamicTasbih =
       'assets/images/iconislamic/tasbih.png';
+  static const String iconislamicTitlename =
+      'assets/images/iconislamic/titlename.png';
   static const String imagesAppicon = 'assets/images/appicon.png';
   static const String imagesAsricon = 'assets/images/asricon.png';
   static const String imagesBackground = 'assets/images/background.png';
@@ -49,6 +52,10 @@ class Assets {
   static const String imagesCloudmoon = 'assets/images/cloudmoon.svg';
   static const String imagesCrescentmoon = 'assets/images/crescentmoon.svg';
   static const String imagesDhuhricon = 'assets/images/dhuhricon.png';
+  static const String imagesDuaa2 = 'assets/images/dua2.jpg';
+  static const String imagesDuaa3 = 'assets/images/dua3.jpg';
+  static const String imagesDuaa4 = 'assets/images/dua4.jpg';
+  static const String imagesDuas1 = 'assets/images/dua1.jpg';
   static const String imagesFajricon = 'assets/images/fajricon.png';
   static const String imagesIshaicon = 'assets/images/ishaicon.png';
   static const String imagesLightmode = 'assets/images/lightmode.svg';

@@ -266,6 +266,9 @@ class _ReadingAzkarScreenState extends State<ReadingAzkarScreen>
                   GestureDetector(
                     onTap: () {
                       cubit.countAzkarYouRead();
+                      // cubit.allAzkar![cubit.selectedIndexFromAskarList]
+                      //     .array![cubit.currentAzkarPageIndex]
+                      //     .copyWith(count: cubit.count);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(

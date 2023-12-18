@@ -21,6 +21,7 @@ import 'package:islamic/features/quran/domain/use_cases/get_surah_use_case.dart'
 import 'core/color/color_schemes.g.dart';
 import 'core/route/router.dart';
 import 'features/azkar/presentation/manager/azkar_cubit.dart';
+import 'features/dua/presentation/manager/dua_cubit.dart';
 import 'features/quran/presentation/manager/quran_cubit.dart';
 
 class MyApp extends StatelessWidget {
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<NameOfAllahCubit>(
           create: (context) => NameOfAllahCubit()..get99NameOfAlah(),
+        ),
+        BlocProvider<DuaCubit>(
+          create: (context) => DuaCubit()..getDuas(),
         )
       ],
       child: MaterialApp(

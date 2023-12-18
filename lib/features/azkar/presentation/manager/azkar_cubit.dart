@@ -107,6 +107,7 @@ class AzkarCubit extends Cubit<AzkarState> {
   void countAzkarYouRead() {
     if (count != 0) {
       count -= 1;
+
       emit(SaveCountReadingAzkar());
     } else {
       saveReadedAzker!

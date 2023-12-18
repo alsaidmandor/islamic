@@ -34,6 +34,10 @@ class AppImages {
   static const iconsunrise = _Image('sunriseicon.png');
   static const backgroundMap = _Image('backgroundmap.jpeg');
   static const mapIcon = _Image('map.png');
+  static const dau1 = _Image('dua1.jpg');
+  static const dau2 = _Image('dua2.jpg');
+  static const dau3 = _Image('dua3.jpg');
+  static const dau4 = _Image('dua4.jpg');
 }
 
 class AppIslamicIcon {
@@ -55,4 +59,5 @@ class AppIslamicIcon {
   static const star = _IslamicIcon('star.png');
   static const openBook = _IslamicIcon('openbook.png');
   static const flowar = _IslamicIcon('flowar.png');
+  static const nameBorder = _IslamicIcon('titlename.png');
 }
