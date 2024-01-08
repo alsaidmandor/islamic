@@ -61,3 +61,9 @@ class DifferenceDurationBetweenCurrentTimeAndPrayerTime
     required this.duration,
   });
 }
+
+class NextPrayer extends PrayerTimeState {
+  NextPrayer();
+}
+
+class Search extends PrayerTimeState {}

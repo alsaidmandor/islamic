@@ -1,14 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic/core/color/colors.dart';
 
 import '../../../../core/location/location.dart';
+import '../../../../core/route/router.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/constants.dart';
 import '../manager/prayer_time_cubit.dart';
+
+Duration? timeDifference;
 
 class BuildTopBodyHomeScreen extends StatefulWidget {
   const BuildTopBodyHomeScreen({super.key});
@@ -21,37 +23,46 @@ class BuildTopBodyHomeScreen extends StatefulWidget {
 }
 
 class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
-  Timer? timer;
+  // Timer? timer;
 
   @override
-  void initState() {
-    startTimer();
+  initState() {
+    PrayerTimeCubit.get(context).startTimer();
+    if (timeDifference != null) {
+      FlutterBackgroundService().invoke("setAsForeground");
+    }
+
     super.initState();
   }
 
-  Duration? timeDifference;
+  // Duration? timeDifference;
+/*
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      DateTime now = DateTime.now();
-      if (PrayerTimeCubit.get(context).nextPrayerTime != null) {
-        DateTime nextPrayer = PrayerTimeCubit.get(context).nextPrayerTime;
-        if (nextPrayer.isAtSameMomentAs(now)) {
-          PrayerTimeCubit.get(context).calculateNextPrayerTime();
-        } else if (nextPrayer.isAfter(now)) {
-          setState(() {
-            timeDifference = nextPrayer.difference(now);
-            if (nextPrayer.isAtSameMomentAs(now)) {
-              PrayerTimeCubit.get(context).calculateNextPrayerTime();
-            }
-          });
+    Future.delayed(
+      Duration(seconds: 10),
+      () => timer = Timer.periodic(Duration(seconds: 1), (timer) async {
+        DateTime now = DateTime.now();
+        if (PrayerTimeCubit.get(context).nextPrayerTime != null) {
+          DateTime nextPrayer = PrayerTimeCubit.get(context).nextPrayerTime!;
+          if (nextPrayer.isAtSameMomentAs(now)) {
+            PrayerTimeCubit.get(context).calculateNextPrayerTime();
+          } else if (nextPrayer.isAfter(now)) {
+            setState(() {
+              timeDifference = nextPrayer.difference(now);
+            });
+          }
+          // print("${nextPrayer.day} => gggggggggggggggggggggg");
         }
-      }
-    });
+      }),
+    );
   }
+*/
 
   @override
   void dispose() {
-    timer!.cancel();
+    // timer!.cancel();
+    // FlutterBackgroundService().invoke("setAsBackground");
+    PrayerTimeCubit.get(context).timer!.cancel();
     super.dispose();
   }
 
@@ -70,9 +81,9 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
 
     return BlocConsumer<PrayerTimeCubit, PrayerTimeState>(
       listener: (context, state) {
-        if (state is PrayerTimeLoaded) {
-          PrayerTimeCubit.get(context).calculateNextPrayerTime();
-          startTimer();
+        if (state is NextPrayer) {
+          PrayerTimeCubit.get(context).startTimer();
+          // startTimer();
         }
       },
       builder: (context, state) {
@@ -121,26 +132,31 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
                                 color: ColorsManager.secondaryLight
                                     .withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(20)),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  CupertinoIcons.location_solid,
-                                  size: 22,
-                                  color: ColorsManager.white,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    currentAddress.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: ColorsManager.white,
-                                        overflow: TextOverflow.ellipsis),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.location);
+                              },
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    CupertinoIcons.location_solid,
+                                    size: 22,
+                                    color: ColorsManager.white,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      currentAddress.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          color: ColorsManager.white,
+                                          overflow: TextOverflow.ellipsis),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )),
                         const Spacer(),
                         IconButton.filled(
@@ -158,7 +174,10 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
                               CircleBorder(),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            FlutterBackgroundService()
+                                .invoke("setAsForeground");
+                          },
                           icon: const Icon(
                             Icons.settings,
                             color: ColorsManager.white,
@@ -252,19 +271,19 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
                         ]),
                       ),
                     ),
-                    if (timeDifference != null) ...{
+                    if (cubit.timeDifference != null) ...{
                       Positioned(
                         top: 210 * 0.8,
-                        child: timeDifference!.inHours == 0
+                        child: cubit.timeDifference!.inHours == 0
                             ? Text(
-                                'Next Prayer:  ${timeDifference!.inMinutes.remainder(60)} : ${timeDifference!.inSeconds.remainder(60)} ',
+                                'Next Prayer:  ${cubit.timeDifference!.inMinutes.remainder(60)} : ${cubit.timeDifference!.inSeconds.remainder(60)} ',
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500),
                               )
                             : Text(
-                                'Next Prayer: ${timeDifference!.inHours} : ${timeDifference!.inMinutes.remainder(60)} : ${timeDifference!.inSeconds.remainder(60)} ',
+                                'Next Prayer: ${cubit.timeDifference!.inHours} : ${cubit.timeDifference!.inMinutes.remainder(60)} : ${cubit.timeDifference!.inSeconds.remainder(60)} ',
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,

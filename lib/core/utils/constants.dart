@@ -7,6 +7,12 @@ var dt = DateTime.now();
 
 double rotationAngle = 0.0;
 
+String city = 'Cairo' ;
+String country = 'Egypt' ;
+
+DateTime? nextPrayer;
+
+String countryCode = 'EG';
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
 }

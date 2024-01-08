@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:country_state_city/models/city.dart';
+import 'package:country_state_city/models/country.dart';
+import 'package:country_state_city/utils/city_utils.dart';
+import 'package:country_state_city/utils/country_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -61,7 +65,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
     }
   }
 
-  late DateTime nextPrayerTime;
+  DateTime? nextPrayerTime;
 
   int indexNextPray = 0;
   bool isFajr = false;
@@ -74,8 +78,11 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
 
       if (prayerTime.isAfter(now)) {
         nextPrayerTime = prayerTime;
+        nextPrayer = prayerTime;
+        // Background.nextPrayerr = prayerTime;
         indexNextPray = i;
         emit(IndexNextPrayer(index: i));
+        print(nextPrayer!.day);
         break;
       }
       var isha = DateFormat('dd-MM-yyyy h:mm a').parse(
@@ -91,14 +98,28 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   }
 
   Timer? timer;
+  Duration? timeDifference;
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       DateTime now = DateTime.now();
+      if (nextPrayerTime != null) {
+        if (nextPrayerTime!.isAfter(now)) {
+          timeDifference = nextPrayerTime!.difference(now);
+          emit(DifferenceDurationBetweenCurrentTimeAndPrayerTime(
+              duration: timeDifference!));
+          if (timeDifference!.inHours == 0 &&
+              timeDifference!.inMinutes == 0 &&
+              timeDifference!.inSeconds == 0) {
+            calculateNextPrayerTime();
+            emit(NextPrayer());
 
-      if (nextPrayerTime.isAfter(now)) {
-        Duration timeDifference = nextPrayerTime.difference(now);
-        emit(DifferenceDurationBetweenCurrentTimeAndPrayerTime(
-            duration: timeDifference));
+            print('hhhhhhhhhhhhhhhh');
+          }
+        } else if (nextPrayerTime!.isAtSameMomentAs(now)) {
+          calculateNextPrayerTime();
+          emit(NextPrayer());
+          print('isAtSameMomentAs');
+        }
       }
     });
   }
@@ -174,6 +195,33 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
         : ColorsManager.backgroundScreenLight;
   }
 */
+
+  List<City> cityAll = [];
+  Future<void> city(String countryCode) async {
+    if (cityAll.isEmpty) {
+      await getCountryCities(countryCode)
+          .then((value) => cityAll.addAll(value));
+      print(cityAll[0].name);
+      print(cityAll.length);
+    }
+  }
+
+  List<Country> country = [];
+
+  void getCountry() async {
+    await getAllCountries().then((value) => country.addAll(value));
+  }
+
+  List<City> searchCity = [];
+  void getSearchCity(String name) {
+    searchCity = cityAll
+        .where((city) => city.name
+            .toLowerCase()
+            .trim()
+            .startsWith(name.toLowerCase().trim()))
+        .toList();
+    emit(Search());
+  }
 }
 
 String _mapFailureToMessage(Failure failure) {

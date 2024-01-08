@@ -22,6 +22,7 @@ class _HomePrayerTimeState extends State<HomePrayerTime> {
   @override
   void initState() {
     context.read<PrayerTimeCubit>().getUserCountryAndCity();
+
     super.initState();
   }
 
@@ -32,6 +33,7 @@ class _HomePrayerTimeState extends State<HomePrayerTime> {
         if (state is LocationLoaded) {
           String city = CacheHelper.getData(key: 'cityName');
           String country = CacheHelper.getData(key: 'countryName');
+
           if (await NetworkInfoImpl(
                   connectionChecker: InternetConnectionChecker())
               .isConnected) {

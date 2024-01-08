@@ -8,42 +8,30 @@ class Assets {
   static const String fontsCairoBlack = 'assets/fonts/Cairo-Black.ttf';
   static const String fontsCairoBold = 'assets/fonts/Cairo-Bold.ttf';
   static const String fontsCairoExtraBold = 'assets/fonts/Cairo-ExtraBold.ttf';
-  static const String fontsCairoExtraLight =
-      'assets/fonts/Cairo-ExtraLight.ttf';
+  static const String fontsCairoExtraLight = 'assets/fonts/Cairo-ExtraLight.ttf';
   static const String fontsCairoLight = 'assets/fonts/Cairo-Light.ttf';
   static const String fontsCairoMedium = 'assets/fonts/Cairo-Medium.ttf';
   static const String fontsCairoRegular = 'assets/fonts/Cairo-Regular.ttf';
   static const String fontsCairoSemiBold = 'assets/fonts/Cairo-SemiBold.ttf';
   static const String iconislamicAllah = 'assets/images/iconislamic/allah.png';
-  static const String iconislamicAllah2 =
-      'assets/images/iconislamic/allah2.png';
-  static const String iconislamicAyahnumber =
-      'assets/images/iconislamic/ayahnumber.png';
-  static const String iconislamicCalendar =
-      'assets/images/iconislamic/calendar.png';
+  static const String iconislamicAllah2 = 'assets/images/iconislamic/allah2.png';
+  static const String iconislamicAyahnumber = 'assets/images/iconislamic/ayahnumber.png';
+  static const String iconislamicCalendar = 'assets/images/iconislamic/calendar.png';
   static const String iconislamicClock = 'assets/images/iconislamic/clock.png';
   static const String iconislamicDome = 'assets/images/iconislamic/dome.png';
-  static const String iconislamicFlowar =
-      'assets/images/iconislamic/flowar.png';
+  static const String iconislamicFlowar = 'assets/images/iconislamic/flowar.png';
   static const String iconislamicHome = 'assets/images/iconislamic/home.png';
   static const String iconislamicHome2 = 'assets/images/iconislamic/home2.png';
   static const String iconislamicLogo = 'assets/images/iconislamic/logo.png';
   static const String iconislamicMail = 'assets/images/iconislamic/mail.png';
-  static const String iconislamicMosquehome =
-      'assets/images/iconislamic/mosquehome.png';
-  static const String iconislamicOpenbook =
-      'assets/images/iconislamic/openbook.png';
-  static const String iconislamicPatterbotton =
-      'assets/images/iconislamic/patterbotton.png';
-  static const String iconislamicQuran2 =
-      'assets/images/iconislamic/quran2.png';
-  static const String iconislamicQuran3 =
-      'assets/images/iconislamic/quran3.png';
+  static const String iconislamicMosquehome = 'assets/images/iconislamic/mosquehome.png';
+  static const String iconislamicOpenbook = 'assets/images/iconislamic/openbook.png';
+  static const String iconislamicPatterbotton = 'assets/images/iconislamic/patterbotton.png';
+  static const String iconislamicQuran2 = 'assets/images/iconislamic/quran2.png';
+  static const String iconislamicQuran3 = 'assets/images/iconislamic/quran3.png';
   static const String iconislamicStar = 'assets/images/iconislamic/star.png';
-  static const String iconislamicTasbih =
-      'assets/images/iconislamic/tasbih.png';
-  static const String iconislamicTitlename =
-      'assets/images/iconislamic/titlename.png';
+  static const String iconislamicTasbih = 'assets/images/iconislamic/tasbih.png';
+  static const String iconislamicTitlename = 'assets/images/iconislamic/titlename.png';
   static const String imagesAppicon = 'assets/images/appicon.png';
   static const String imagesAsricon = 'assets/images/asricon.png';
   static const String imagesBackground = 'assets/images/background.png';
@@ -52,10 +40,10 @@ class Assets {
   static const String imagesCloudmoon = 'assets/images/cloudmoon.svg';
   static const String imagesCrescentmoon = 'assets/images/crescentmoon.svg';
   static const String imagesDhuhricon = 'assets/images/dhuhricon.png';
-  static const String imagesDuaa2 = 'assets/images/dua2.jpg';
-  static const String imagesDuaa3 = 'assets/images/dua3.jpg';
-  static const String imagesDuaa4 = 'assets/images/dua4.jpg';
-  static const String imagesDuas1 = 'assets/images/dua1.jpg';
+  static const String imagesDua1 = 'assets/images/dua1.jpg';
+  static const String imagesDua2 = 'assets/images/dua2.jpg';
+  static const String imagesDua3 = 'assets/images/dua3.jpg';
+  static const String imagesDua4 = 'assets/images/dua4.jpg';
   static const String imagesFajricon = 'assets/images/fajricon.png';
   static const String imagesIshaicon = 'assets/images/ishaicon.png';
   static const String imagesLightmode = 'assets/images/lightmode.svg';
@@ -77,4 +65,5 @@ class Assets {
   static const String x3Background = 'assets/images/x3/background.png';
   static const String x3Logolancher = 'assets/images/x3/logolancher.png';
   static const String x3Mosquehome = 'assets/images/x3/mosquehome.png';
+
 }

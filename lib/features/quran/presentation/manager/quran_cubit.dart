@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic/core/use_case/no_params.dart';
 import 'package:islamic/features/quran/data/models/juzz/juz_list.dart';
 import 'package:islamic/features/quran/data/models/sajda/sajda_list.dart';
 import 'package:islamic/features/quran/data/models/surah/surah_list.dart';
-import 'package:meta/meta.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/app_strings.dart';
@@ -103,8 +103,18 @@ class QuranCubit extends Cubit<QuranState> {
     }
   }
 
+  int colorIndex = 0;
+  void selectIndexColor(int index) {
+    colorIndex = index;
+    emit(ChangeTheme());
+  }
 
+  double fontSize = 25;
 
+  void changeSliderValue(double value) {
+    fontSize = value;
+    emit(ChangeSliderFontSizeSurah());
+  }
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {

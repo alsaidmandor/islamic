@@ -79,3 +79,7 @@ class ChangePageNumber extends QuranState {
     required this.index,
   });
 }
+
+class ChangeTheme extends QuranState {}
+
+class ChangeSliderFontSizeSurah extends QuranState {}
