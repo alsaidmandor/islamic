@@ -5,6 +5,7 @@ import '../../../features/prayertime/data/models/prayer.dart';
 import '../../../features/quran/data/models/ayat/ayat.dart';
 import '../../../features/quran/data/models/juzz/juz.dart';
 import '../../../features/quran/data/models/juzz/juz_list.dart';
+import '../../../features/quran/data/models/juzz/list_all_juz.dart';
 import '../../../features/quran/data/models/sajda/sajda.dart';
 import '../../../features/quran/data/models/sajda/sajda_list.dart';
 import '../../../features/quran/data/models/surah/surah.dart';
@@ -25,10 +26,12 @@ class LocalDatabaseRegister {
     Hive.registerAdapter<Surah>(SurahAdapter());
     Hive.registerAdapter<Prayer>(PrayerAdapter());
     Hive.registerAdapter<PrayerDate>(PrayerDateAdapter());
+    Hive.registerAdapter<ListAllJuz>(ListAllJuzAdapter());
   }
 
   static openHiveBox() async {
     await Hive.openBox('quran');
+    await Hive.openBox('juz');
     await Hive.openBox('prayerTime');
     // await Hive.openBox('location');
   }

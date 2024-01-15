@@ -22,6 +22,7 @@ class PrayerTimeRepository extends PrayerTimeRepositoryBase {
       required String country}) async {
     if (await networkInfo.isConnected) {
       try {
+        local.delete();
         List<PrayerDate>? remotePrayerTime = await remote.getPrayerTime(
             year: year, month: month, city: city, country: country);
         local.save(remotePrayerTime);

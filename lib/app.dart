@@ -11,7 +11,7 @@ import 'package:islamic/features/prayertime/data/data_sources/prayertime_remote_
 import 'package:islamic/features/prayertime/data/repositories/prayertime_repository.dart';
 import 'package:islamic/features/prayertime/domain/use_cases/get_prayertime_use_case.dart';
 import 'package:islamic/features/prayertime/presentation/manager/prayer_time_cubit.dart';
-import 'package:islamic/features/quran/data/data_sources/local/quran_local_data_source.dart';
+import 'package:islamic/features/quran/data/data_sources/local/quran_local_data_source_impl.dart';
 import 'package:islamic/features/quran/data/data_sources/remote/quran_remote_data_source.dart';
 import 'package:islamic/features/quran/data/repositories/quran_repository_impl.dart';
 import 'package:islamic/features/quran/domain/use_cases/get_juz_use_case.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             create: (context) => QuranCubit(
                 juzUseCase: GetJuzUseCase(
                   repositoryBase: QuranRepositoryImpl(
-                    local: QuranLocalDataSource(),
+                    local: QuranLocalDataSourceImpl(),
                     networkInfo: NetworkInfoImpl(
                         connectionChecker: InternetConnectionChecker()),
                     remote: QuranRemoteDataSourceImpl(
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
                 ),
                 sajdaUseCase: GetSajdaUseCase(
                     repositoryBase: QuranRepositoryImpl(
-                  local: QuranLocalDataSource(),
+                  local: QuranLocalDataSourceImpl(),
                   networkInfo: NetworkInfoImpl(
                       connectionChecker: InternetConnectionChecker()),
                   remote: QuranRemoteDataSourceImpl(
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
                 )),
                 surahUseCase: GetSurahUseCase(
                     repositoryBase: QuranRepositoryImpl(
-                  local: QuranLocalDataSource(),
+                  local: QuranLocalDataSourceImpl(),
                   networkInfo: NetworkInfoImpl(
                       connectionChecker: InternetConnectionChecker()),
                   remote: QuranRemoteDataSourceImpl(

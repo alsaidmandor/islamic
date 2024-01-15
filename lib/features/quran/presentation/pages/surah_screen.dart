@@ -5,47 +5,11 @@ import 'package:islamic/core/utils/constants.dart';
 
 import '../../../../core/color/colors.dart';
 import '../../../../core/utils/assets_manager.dart';
+import '../../../../core/utils/quran_icon.dart';
 import '../manager/quran_cubit.dart';
-
-List<Color> colorBackgroundSurahLight = const [
-  Color(0xFFFFFFFF),
-  Color(0xFFFEEED4),
-  Color(0xFFD4F4CF),
-];
-List<Color> colorBorderLight = const [
-  Color(0xFFF0F2F3),
-  Color(0xFFF6E4C4),
-  Color(0xFFc3f0bf),
-];
-List<Color> colorBorderDark = const [
-  Color(0xFF363D45),
-  Color(0xFF76685B),
-  Color(0xFF5F7D65),
-];
-List<Color> colorBackgroundSurahDark = const [
-  Color(0xFF262B2F),
-  Color(0xFF685A4D),
-  Color(0xFF5A6F4C),
-];
 
 class SurahScreen extends StatelessWidget {
   SurahScreen({super.key});
-
-  Color getListColorBackground(BuildContext context, int index) {
-    Brightness brightness = Theme.of(context).brightness;
-
-    return brightness == Brightness.dark
-        ? colorBackgroundSurahDark[index]
-        : colorBackgroundSurahLight[index];
-  }
-
-  Color getListColorBorderForSelected(BuildContext context, int index) {
-    Brightness brightness = Theme.of(context).brightness;
-
-    return brightness == Brightness.dark
-        ? colorBorderDark[index]
-        : colorBorderLight[index];
-  }
 
   int pages = 1;
 
@@ -57,7 +21,8 @@ class SurahScreen extends StatelessWidget {
         var cubit = QuranCubit.get(context);
 
         return Scaffold(
-          backgroundColor: getListColorBackground(context, cubit.colorIndex),
+          backgroundColor:
+              getListColorBackground(context, cubit.backgroundColorSurahIndex),
           body: SafeArea(
             child: Column(
               children: [
@@ -144,7 +109,7 @@ class SurahScreen extends StatelessWidget {
                                                       return GestureDetector(
                                                         onTap: () {
                                                           cubit
-                                                              .selectIndexColor(
+                                                              .selectSurahIndexColor(
                                                                   index);
                                                           Navigator.of(context)
                                                               .pop();
@@ -166,7 +131,7 @@ class SurahScreen extends StatelessWidget {
                                                                       context,
                                                                       index),
                                                                   width: 1)),
-                                                          child: cubit.colorIndex ==
+                                                          child: cubit.backgroundColorSurahIndex ==
                                                                   index
                                                               ? buildCheckMark()
                                                               : null,
@@ -189,17 +154,19 @@ class SurahScreen extends StatelessWidget {
                                                       ),
                                                       Expanded(
                                                         child: Slider(
-                                                          value: cubit.fontSize,
+                                                          value: cubit
+                                                              .fontSizeSurah,
                                                           onChanged: (value) {
                                                             cubit
                                                                 .changeSliderValue(
                                                                     value);
                                                           },
-                                                          label: cubit.fontSize
+                                                          label: cubit
+                                                              .fontSizeSurah
                                                               .toString(),
-                                                          divisions: 50,
-                                                          max: 50.0,
-                                                          min: 0,
+                                                          divisions: 24,
+                                                          max: 40.0,
+                                                          min: 16,
                                                           // inactiveColor:
                                                           //     Colors.grey,
                                                         ),
@@ -272,7 +239,7 @@ class SurahScreen extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 60,
-                              width: getSize(context).width * 0.8,
+                              width: getSize(context).width * 0.9,
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
@@ -316,6 +283,7 @@ class SurahScreen extends StatelessWidget {
     );
   }
 
+  int hzpp = 1;
   Widget buildShowSurahText(QuranCubit cubit, BuildContext context) {
     return RichText(
       textDirection: TextDirection.rtl,
@@ -335,48 +303,66 @@ class SurahScreen extends StatelessWidget {
                           .substring(39),
                     ),
                     WidgetSpan(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                          image: AppIslamicIcon.ahyaNumber,
-                        )),
-                        child: Center(
-                          child: Text(
-                            ' ${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
-                            style: const TextStyle(fontSize: 12),
-                            textAlign: TextAlign.center,
+                        alignment: PlaceholderAlignment.middle,
+                        child: SizedBox(
+                          height: 40,
+                          width: 35,
+                          child: Center(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                const Positioned(
+                                    bottom: 16,
+                                    width: 35,
+                                    height: 40,
+                                    child: Icon(IconQuran.aya, size: 40)),
+                                Positioned(
+                                  bottom: 12,
+                                  child: Center(
+                                    child: Text(
+                                      '${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
+                                      style: const TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                   } else ...{
                     TextSpan(
                       text:
                           cubit.listOfSurahs![cubit.indexItem].ayahs![i].text!,
                     ),
                     WidgetSpan(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                          image: AppIslamicIcon.ahyaNumber,
-                        )),
-                        child: Center(
-                          child: Text(
-                            ' ${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
-                            style: const TextStyle(fontSize: 12),
-                            textAlign: TextAlign.center,
+                        alignment: PlaceholderAlignment.middle,
+                        child: SizedBox(
+                          height: 40,
+                          width: 35,
+                          child: Center(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Positioned(
+                                    bottom: 16,
+                                    width: 35,
+                                    height: 40,
+                                    child: const Icon(IconQuran.aya, size: 40)),
+                                Positioned(
+                                  bottom: 12,
+                                  child: Center(
+                                    child: Text(
+                                      '${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
+                                      style: const TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )),
+                        )),
                   }
                 } else ...{
                   // if(page <=cubit.listOfSurahs![cubit.indexItem].ayahs![i].page!.toInt())...{
@@ -385,24 +371,33 @@ class SurahScreen extends StatelessWidget {
                     text: cubit.listOfSurahs![cubit.indexItem].ayahs![i].text!,
                   ),
                   WidgetSpan(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Container(
-                      height: 35,
-                      width: 35,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                        image: AppIslamicIcon.ahyaNumber,
-                      )),
-                      child: Center(
-                        child: Text(
-                          ' ${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
-                          style: const TextStyle(fontSize: 12),
-                          textAlign: TextAlign.center,
+                      alignment: PlaceholderAlignment.middle,
+                      child: SizedBox(
+                        height: 40,
+                        width: 35,
+                        child: Center(
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Positioned(
+                                  bottom: 16,
+                                  width: 35,
+                                  height: 40,
+                                  child: const Icon(IconQuran.aya, size: 40)),
+                              Positioned(
+                                bottom: 12,
+                                child: Center(
+                                  child: Text(
+                                    '${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
+                                    style: const TextStyle(fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                  )),
+                      )),
 
                   if (cubit.listOfSurahs![cubit.indexItem].ayahs![i].page !=
                       pages) ...{
@@ -421,29 +416,38 @@ class SurahScreen extends StatelessWidget {
                   text: cubit.listOfSurahs![cubit.indexItem].ayahs![i].text!,
                 ),
                 WidgetSpan(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: 35,
-                    width: 35,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                      image: AppIslamicIcon.ahyaNumber,
-                    )),
-                    child: Center(
-                      child: Text(
-                        ' ${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
-                        style: const TextStyle(fontSize: 12),
-                        textAlign: TextAlign.center,
+                    alignment: PlaceholderAlignment.middle,
+                    child: SizedBox(
+                      height: 40,
+                      width: 35,
+                      child: Center(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                                bottom: 16,
+                                width: 35,
+                                height: 40,
+                                child: const Icon(IconQuran.aya, size: 40)),
+                            Positioned(
+                              bottom: 12,
+                              child: Center(
+                                child: Text(
+                                  '${cubit.listOfSurahs![cubit.indexItem].ayahs![i].numberInSurah}',
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                )),
+                    )),
               },
             }
           ],
           style: TextStyle(
-              fontSize: cubit.fontSize,
+              fontSize: cubit.fontSizeSurah,
               letterSpacing: 0.9,
               height: 2.5,
               wordSpacing: 0.2,

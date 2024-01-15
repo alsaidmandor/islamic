@@ -62,8 +62,16 @@ class DifferenceDurationBetweenCurrentTimeAndPrayerTime
   });
 }
 
+class CancelTimer extends PrayerTimeState {
+  CancelTimer();
+}
+
 class NextPrayer extends PrayerTimeState {
   NextPrayer();
 }
 
 class Search extends PrayerTimeState {}
+
+class SelectedCity extends PrayerTimeState {}
+
+class SelectedCountryAndCode extends PrayerTimeState {}

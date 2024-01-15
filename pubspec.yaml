@@ -76,6 +76,7 @@ dependencies:
   awesome_notifications: any
   awesome_notifications_core: ^0.8.0
   country_state_city: ^0.1.6
+  vibration: ^1.8.4
 
 
 
@@ -158,6 +159,11 @@ flutter:
           weight: 600
         - asset: assets/fonts/Cairo-Bold.ttf
           weight: 700
+    - family: QURAN
+      fonts:
+        - asset: assets/fonts/quran.ttf
+          weight: 400
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

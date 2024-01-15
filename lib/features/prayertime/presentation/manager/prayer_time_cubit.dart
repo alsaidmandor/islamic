@@ -83,8 +83,10 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
         indexNextPray = i;
         emit(IndexNextPrayer(index: i));
         print(nextPrayer!.day);
+        print('nextPrayer!.day');
         break;
       }
+      startTimer();
       var isha = DateFormat('dd-MM-yyyy h:mm a').parse(
           '${prayerTimeList[dt.day - 1].date} ${prayerTimeList[dt.day - 1].prayers[5].time.toString()}');
       if (prayerTime.isAtSameMomentAs(isha) || isha.isBefore(now)) {
@@ -100,28 +102,36 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
   Timer? timer;
   Duration? timeDifference;
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       DateTime now = DateTime.now();
       if (nextPrayerTime != null) {
-        if (nextPrayerTime!.isAfter(now)) {
-          timeDifference = nextPrayerTime!.difference(now);
-          emit(DifferenceDurationBetweenCurrentTimeAndPrayerTime(
-              duration: timeDifference!));
-          if (timeDifference!.inHours == 0 &&
-              timeDifference!.inMinutes == 0 &&
-              timeDifference!.inSeconds == 0) {
-            calculateNextPrayerTime();
-            emit(NextPrayer());
+        timeDifference = nextPrayerTime!.difference(now);
+        emit(DifferenceDurationBetweenCurrentTimeAndPrayerTime(
+            duration: timeDifference!));
+        print(
+            '${timeDifference!.inHours * 60 * 60 + timeDifference!.inMinutes * 60 + timeDifference!.inSeconds}');
 
-            print('hhhhhhhhhhhhhhhh');
-          }
-        } else if (nextPrayerTime!.isAtSameMomentAs(now)) {
+        /*     if (nextPrayerTime!.isAtSameMomentAs(now)) {
           calculateNextPrayerTime();
           emit(NextPrayer());
-          print('isAtSameMomentAs');
+          print('hhhhhhhhhhhhhhhh');
+        }*/
+
+        if (timeDifference!.inHours == 0 &&
+            timeDifference!.inMinutes == 0 &&
+            timeDifference!.inSeconds == 0) {
+          calculateNextPrayerTime();
+          emit(NextPrayer());
+
+          print('hhhhhhhhhhhhhhhh');
         }
       }
     });
+  }
+
+  void cancelTime() {
+    timer!.cancel();
+    emit(CancelTimer());
   }
 
   Future<bool> handleLocationPermission() async {
@@ -169,7 +179,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
               key: 'cityName', value: place.subAdministrativeArea.toString());
           CacheHelper.saveData(
               key: 'countryName', value: place.country.toString());
-
+          countryCode = place.isoCountryCode.toString();
           emit(LocationLoaded(placemark: place));
         }).catchError((e) {
           emit(LocationFailure());
@@ -198,6 +208,7 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
 
   List<City> cityAll = [];
   Future<void> city(String countryCode) async {
+    cityAll.clear();
     if (cityAll.isEmpty) {
       await getCountryCities(countryCode)
           .then((value) => cityAll.addAll(value));
@@ -206,10 +217,10 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
     }
   }
 
-  List<Country> country = [];
+  List<Country> listOfCountry = [];
 
   void getCountry() async {
-    await getAllCountries().then((value) => country.addAll(value));
+    await getAllCountries().then((value) => listOfCountry.addAll(value));
   }
 
   List<City> searchCity = [];
@@ -221,6 +232,23 @@ class PrayerTimeCubit extends Cubit<PrayerTimeState> {
             .startsWith(name.toLowerCase().trim()))
         .toList();
     emit(Search());
+  }
+
+  String country = 'Egypt';
+  String countryCode = 'Eg';
+  void selectedCountry(String name, String code) {
+    country = name;
+    countryCode = code;
+    city(code);
+    emit(SelectedCountryAndCode());
+  }
+
+  String cityName = 'Cairo';
+  void selectedCity(String name) {
+    cityName = name;
+    CacheHelper.saveData(key: 'cityName', value: name);
+    CacheHelper.saveData(key: 'countryName', value: country);
+    emit(SelectedCity());
   }
 }
 

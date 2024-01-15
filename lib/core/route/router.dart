@@ -3,13 +3,14 @@ import 'package:islamic/features/nameOfAllah/presentation/pages/name_allah_scree
 import 'package:islamic/features/prayertime/presentation/pages/calendar_screen.dart';
 import 'package:islamic/features/prayertime/presentation/pages/qibla_screen.dart';
 import 'package:islamic/features/prayertime/presentation/pages/select_country.dart';
-import 'package:islamic/features/prayertime/presentation/pages/tasbih_screen.dart';
 import 'package:islamic/features/profile/presentation/pages/profile_screen.dart';
+import 'package:islamic/features/tasbih/presentation/pages/tasbih_screen.dart';
 
 import '../../features/azkar/presentation/pages/askzr/azkar_screen.dart';
 import '../../features/azkar/presentation/pages/askzr/reading_azkar-screen.dart';
 import '../../features/dua/presentation/pages/daus_screen.dart';
 import '../../features/mainLayer/presentation/pages/main_layout_screen.dart';
+import '../../features/prayertime/presentation/pages/athan_screen.dart';
 import '../../features/prayertime/presentation/pages/home.dart';
 import '../../features/prayertime/presentation/pages/search_screen.dart';
 import '../../features/prayertime/presentation/pages/select_location.dart';
@@ -42,6 +43,7 @@ class Routes {
   static const String location = '/location';
   static const String country = '/country';
   static const String search = '/search';
+  static const String athan = '/athan';
 }
 
 class AppRoutes {
@@ -67,7 +69,7 @@ class AppRoutes {
         return MaterialPageRoute(
             builder: (context) => const NameOfAllahScreen());
       case Routes.tasbih:
-        return MaterialPageRoute(builder: (context) => const TasbihScreen());
+        return MaterialPageRoute(builder: (context) => TasbihScreen());
       case Routes.qibla:
         return MaterialPageRoute(builder: (context) => const QiblaScreen());
       case Routes.daus:
@@ -82,6 +84,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => SelectCountry());
       case Routes.search:
         return MaterialPageRoute(builder: (context) => SearchScreen());
+      case Routes.athan:
+        return MaterialPageRoute(builder: (context) => AthanScreen());
     }
     return null;
   }

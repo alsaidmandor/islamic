@@ -4,13 +4,13 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic/core/color/colors.dart';
 
-import '../../../../core/location/location.dart';
 import '../../../../core/route/router.dart';
+import '../../../../core/services/local/cache_helper.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/constants.dart';
 import '../manager/prayer_time_cubit.dart';
 
-Duration? timeDifference;
+// Duration? timeDifference;
 
 class BuildTopBodyHomeScreen extends StatefulWidget {
   const BuildTopBodyHomeScreen({super.key});
@@ -27,14 +27,28 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
 
   @override
   initState() {
-    PrayerTimeCubit.get(context).startTimer();
-    if (timeDifference != null) {
+    // PrayerTimeCubit.get(context).startTimer();
+    if (PrayerTimeCubit.get(context).timeDifference != null) {
       FlutterBackgroundService().invoke("setAsForeground");
     }
 
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant BuildTopBodyHomeScreen oldWidget) {
+    setState(() {
+      oldWidget.createState();
+    });
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // PrayerTimeCubit.get(context).cancelTime();
+
+    super.didChangeDependencies();
+  }
   // Duration? timeDifference;
 /*
   void startTimer() {
@@ -58,13 +72,13 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
   }
 */
 
-  @override
-  void dispose() {
-    // timer!.cancel();
-    // FlutterBackgroundService().invoke("setAsBackground");
-    PrayerTimeCubit.get(context).timer!.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // timer!.cancel();
+  //   // FlutterBackgroundService().invoke("setAsBackground");
+  //   PrayerTimeCubit.get(context).cancelTime();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +95,10 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
 
     return BlocConsumer<PrayerTimeCubit, PrayerTimeState>(
       listener: (context, state) {
-        if (state is NextPrayer) {
-          PrayerTimeCubit.get(context).startTimer();
-          // startTimer();
+        if (state is DifferenceDurationBetweenCurrentTimeAndPrayerTime) {
+          // NotificationService().permissionRequest();
+          // NotificationService().createPlantFoodNotification(
+          //     PrayerTimeCubit.get(context).timeDifference!);
         }
       },
       builder: (context, state) {
@@ -148,7 +163,7 @@ class _BuildTopBodyHomeScreenState extends State<BuildTopBodyHomeScreen> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      currentAddress.toString(),
+                                      CacheHelper.getData(key: 'cityName'),
                                       style: const TextStyle(
                                           fontSize: 14,
                                           color: ColorsManager.white,

@@ -6,6 +6,7 @@ import 'package:islamic/core/color/colors.dart';
 import '../../../../core/route/router.dart';
 import '../../../../core/services/local/cache_helper.dart';
 import '../../../../core/utils/constants.dart';
+import '../../domain/entitiy/params_get_prayer_time.dart';
 import '../manager/prayer_time_cubit.dart';
 
 List<String> popularCities = [
@@ -31,6 +32,24 @@ class _SelectLocationState extends State<SelectLocation> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant SelectLocation oldWidget) {
+    oldWidget.createState();
+    print('state');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    city = CacheHelper.getData(key: 'cityName');
+    country = CacheHelper.getData(key: 'countryName');
+    print(city);
+    print(CacheHelper.getData(key: 'cityName'));
+    print(country);
+    print(CacheHelper.getData(key: 'countryName'));
+  }
+
   // void getCountry(String countryCode) async {
   @override
   Widget build(BuildContext context) {
@@ -40,8 +59,6 @@ class _SelectLocationState extends State<SelectLocation> {
         // TODO: implement listener
       },
       builder: (context, state) {
-        String city = CacheHelper.getData(key: 'cityName');
-        String country = CacheHelper.getData(key: 'countryName');
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -96,7 +113,7 @@ class _SelectLocationState extends State<SelectLocation> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text('Courrent Location'),
+                const Text('Current Location'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -106,26 +123,36 @@ class _SelectLocationState extends State<SelectLocation> {
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.onInverseSurface,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.location_pin,
-                            color: ColorsManager.mainColor,
-                            size: 15,
-                          ),
-                          Text('$city , $country'),
-                        ],
+                      child: Visibility(
+                        replacement: const Row(
+                          children: [
+                            Center(child: CircularProgressIndicator()),
+                            Text('relocating ...'),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_pin,
+                              color: ColorsManager.mainColor,
+                              size: 15,
+                            ),
+                            Text(
+                                '${CacheHelper.getData(key: 'cityName')} , ${CacheHelper.getData(key: 'countryName')}'),
+                          ],
+                        ),
                       ),
                     ),
                     TextButton(
                         onPressed: () {
                           cubit.getUserCountryAndCity();
+                          cubit.city(countryCode);
                         },
                         child: const Text('Relocate'))
                   ],
                 ),
 
-         /*       const Text('Popular Cities'),
+                /*       const Text('Popular Cities'),
                 const SizedBox(
                   height: 10,
                 ),
@@ -162,6 +189,7 @@ class _SelectLocationState extends State<SelectLocation> {
                 const SizedBox(
                   height: 30,
                 ),
+
                 Expanded(
                   child: Container(
                     height: double.infinity,
@@ -174,7 +202,23 @@ class _SelectLocationState extends State<SelectLocation> {
                             const SizedBox(
                               height: 12,
                             ),
-                            Text(cubit.cityAll[index].name),
+                            InkWell(
+                                onTap: () {
+                                  cubit.getPrayerTime(ParamsGetPrayerTime(
+                                    year: dt.year.toString(),
+                                    month: dt.month.toString(),
+                                    city: cubit.cityAll[index].name,
+                                    country: cubit.country,
+                                  ));
+                                  print(city);
+                                  print(country);
+                                  print(countryCode);
+                                  String cityName = cubit.cityAll[index].name;
+                                  cubit.selectedCity(cityName);
+
+                                  print(CacheHelper.getData(key: 'cityName'));
+                                },
+                                child: Text(cubit.cityAll[index].name)),
                             const SizedBox(
                               height: 12,
                             ),

@@ -51,7 +51,7 @@ class _QuranScreenState extends State<QuranScreen>
         // TODO: implement listener
       },
       builder: (context, state) {
-        // var cubit = QuranCubit.get(context);
+        var cubit = QuranCubit.get(context);
         return Scaffold(
           body: Stack(
             children: [

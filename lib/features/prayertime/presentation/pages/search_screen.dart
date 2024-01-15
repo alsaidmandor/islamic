@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/constants.dart';
+import '../../domain/entitiy/params_get_prayer_time.dart';
 import '../manager/prayer_time_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -70,7 +71,21 @@ class SearchScreen extends StatelessWidget {
                             const SizedBox(
                               height: 12,
                             ),
-                            Text(cubit.searchCity[index].name),
+                            InkWell(
+                                onTap: () {
+                                  cubit.getPrayerTime(ParamsGetPrayerTime(
+                                    year: dt.year.toString(),
+                                    month: dt.month.toString(),
+                                    city: cubit.cityAll[index].name,
+                                    country: cubit.country,
+                                  ));
+                                  print(city);
+                                  print(country);
+                                  print(countryCode);
+                                  String cityName = cubit.cityAll[index].name;
+                                  cubit.selectedCity(cityName);
+                                },
+                                child: Text(cubit.cityAll[index].name)),
                             const SizedBox(
                               height: 12,
                             ),

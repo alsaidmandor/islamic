@@ -218,7 +218,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                                       })),
                             } else ...{
                               SizedBox(
-                                height: 365,
+                                height: 360,
                                 child: ListView.separated(
                                   separatorBuilder: (context, index) =>
                                       SpaceLine(context: context, height: 0.5),
@@ -230,10 +230,10 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                                           text: prayerName[index],
                                           isSelected: false,
                                           time: '--:--',
-                                          indexPage: 6,
-                                          indexSelectedPage: 6,
-                                          indexPrayer: 6,
-                                          indexSelectedPrayer: 6,
+                                          indexPage: 0,
+                                          indexSelectedPage: 1,
+                                          indexPrayer: 0,
+                                          indexSelectedPrayer: 0,
                                           context: context,
                                           icon: CupertinoIcons.speaker_1_fill),
                                 ),

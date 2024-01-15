@@ -55,6 +55,7 @@ class QuranCubit extends Cubit<QuranState> {
 
       print(juz.juzNumber);
       print(juz.juzAyahs![1].ayahsText);
+      print(juz.juzAyahs![1].hizbQuarter.toString());
       emit(QuranGetJuzLoaded(getALlJuzList: juz));
       getALlJuzList.add(juz);
       lisJuz = juz;
@@ -103,17 +104,25 @@ class QuranCubit extends Cubit<QuranState> {
     }
   }
 
-  int colorIndex = 0;
-  void selectIndexColor(int index) {
-    colorIndex = index;
+  int backgroundColorSurahIndex = 0;
+  void selectSurahIndexColor(int index) {
+    backgroundColorSurahIndex = index;
     emit(ChangeTheme());
   }
 
-  double fontSize = 25;
+  double fontSizeSurah = 25;
 
   void changeSliderValue(double value) {
-    fontSize = value;
+    if (value >= 16) {
+      fontSizeSurah = value;
+    }
     emit(ChangeSliderFontSizeSurah());
+  }
+
+  bool isSaveLocal = false;
+  void checkIsSaveLocalOrNot() {
+    isSaveLocal = !isSaveLocal;
+    emit(SaveLocal());
   }
 
   String _mapFailureToMessage(Failure failure) {

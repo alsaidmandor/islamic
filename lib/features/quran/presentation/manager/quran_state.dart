@@ -83,3 +83,4 @@ class ChangePageNumber extends QuranState {
 class ChangeTheme extends QuranState {}
 
 class ChangeSliderFontSizeSurah extends QuranState {}
+class SaveLocal extends QuranState {}

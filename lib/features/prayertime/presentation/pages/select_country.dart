@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/route/router.dart';
 
+import '../../../../core/route/router.dart';
 import '../../../../core/utils/constants.dart';
 import '../manager/prayer_time_cubit.dart';
 
@@ -16,7 +16,7 @@ class SelectCountry extends StatefulWidget {
 class _SelectCountryState extends State<SelectCountry> {
   @override
   void initState() {
-    PrayerTimeCubit.get(context).getCountry();
+    // PrayerTimeCubit.get(context).getCountry();
     super.initState();
   }
 
@@ -74,7 +74,7 @@ class _SelectCountryState extends State<SelectCountry> {
                   child: Container(
                     height: double.infinity,
                     child: ListView.builder(
-                      itemCount: cubit.country.length,
+                      itemCount: cubit.listOfCountry.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,22 @@ class _SelectCountryState extends State<SelectCountry> {
                             const SizedBox(
                               height: 12,
                             ),
-                            Text(cubit.country[index].name),
+                            InkWell(
+                                onTap: () {
+                                  String country = cubit
+                                      .listOfCountry[index].name
+                                      .toString();
+                                  // cubit
+                                  //     .city(cubit.listOfCountry[index].isoCode);
+                                  String countryCode = cubit
+                                      .listOfCountry[index].isoCode
+                                      .toString();
+                                  cubit.selectedCountry(country, countryCode);
+
+                                  print(countryCode);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(cubit.listOfCountry[index].name)),
                             const SizedBox(
                               height: 12,
                             ),

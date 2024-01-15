@@ -7,14 +7,30 @@ var dt = DateTime.now();
 
 double rotationAngle = 0.0;
 
-String city = 'Cairo' ;
-String country = 'Egypt' ;
+String city = '';
+String country = '';
 
 DateTime? nextPrayer;
 
 String countryCode = 'EG';
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
+}
+
+Color getListColorBackground(BuildContext context, int index) {
+  Brightness brightness = Theme.of(context).brightness;
+
+  return brightness == Brightness.dark
+      ? colorBackgroundSurahDark[index]
+      : colorBackgroundSurahLight[index];
+}
+
+Color getListColorBorderForSelected(BuildContext context, int index) {
+  Brightness brightness = Theme.of(context).brightness;
+
+  return brightness == Brightness.dark
+      ? colorBorderDark[index]
+      : colorBorderLight[index];
 }
 
 List<ImageProvider> backgroundDua = [

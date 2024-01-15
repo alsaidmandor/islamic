@@ -9,8 +9,8 @@ class DioService {
     BaseOptions options = BaseOptions(
       baseUrl: AppStrings.baseUrl,
       receiveDataWhenStatusError: true,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 5),
     );
     dio = Dio(options);
   }

@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+List<Color> colorBackgroundSurahLight = const [
+  Color(0xFFFFFFFF),
+  Color(0xFFFEEED4),
+  Color(0xFFD4F4CF),
+];
+List<Color> colorBorderLight = const [
+  Color(0xFFF0F2F3),
+  Color(0xFFF6E4C4),
+  Color(0xFFc3f0bf),
+];
+List<Color> colorBorderDark = const [
+  Color(0xFF363D45),
+  Color(0xFF76685B),
+  Color(0xFF5F7D65),
+];
+List<Color> colorBackgroundSurahDark = const [
+  Color(0xFF262B2F),
+  Color(0xFF685A4D),
+  Color(0xFF5A6F4C),
+];
+
 class ColorsManager {
   static const String mainColorHex = '4CC0BD';
 

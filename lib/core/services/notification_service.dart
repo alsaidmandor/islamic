@@ -17,7 +17,7 @@ class NotificationService {
           enableLights: true,
           locked: true,
           importance: NotificationImportance.High,
-          channelShowBadge: true,
+          channelShowBadge: false,
           channelDescription: 'islamic',
         ),
       ],
@@ -48,8 +48,16 @@ class NotificationService {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: 888,
-        channelKey: 'basic_channel',
+        displayOnBackground: true,
+        displayOnForeground: true,
+        channelKey: 'fixed_count',
         showWhen: false,
+        fullScreenIntent: true,
+        badge: 0,
+        // criticalAlert: true,
+        autoDismissible: false,
+        // customSound: '',
+        wakeUpScreen: true,
         title: 'islamic',
         body: timeDifference.inHours == 0
             ? 'Next Prayer:  ${timeDifference!.inMinutes.remainder(60)} : ${timeDifference!.inSeconds.remainder(60)} '
